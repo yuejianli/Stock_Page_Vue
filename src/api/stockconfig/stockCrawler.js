@@ -19,5 +19,12 @@ export default {
         type: type
       }
     })
+  },
+  stockHistoryAsync(data) {
+    return request({
+      url: `${CRAWLER_URL}/stockHistoryAsync`,
+      method: 'post',
+      data
+    })
   }
 }

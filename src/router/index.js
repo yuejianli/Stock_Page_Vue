@@ -61,6 +61,225 @@ export const constantRouterMap = [
   },
   // TODO: yjl 添加菜单路由
   {
+    path: '/stock',
+    component: Layout,
+    redirect: '/stock/stock',
+    name: '股票信息模块',
+    meta: { title: '股票信息模块', icon: 'example' },
+    children: [
+      {
+        path: 'stock',
+        name: '股票模块',
+        component: () => import('@/views/stock/stock/index'),
+        meta: { title: '股票模块', icon: 'table' }
+      },
+      {
+        path: 'selected',
+        name: '自选股票',
+        component: () => import('@/views/stock/selected/index'),
+        meta: { title: '自选股票', icon: 'table' }
+      },
+      {
+        path: 'stock_history',
+        name: '自选股票最近交易记录',
+        component: () => import('@/views/stock/stock_history/index'),
+        meta: { title: '自选股票最近交易记录', icon: 'table' }
+      },
+      {
+        path: 'stock_update_log',
+        name: '股票更新日志',
+        component: () => import('@/views/stock/stock_update_log/index'),
+        meta: { title: '股票更新日志', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/bk',
+    component: Layout,
+    redirect: '/bk/stock',
+    name: '板块/概念模块',
+    meta: { title: '板块/概念模块', icon: 'example' },
+    children: [
+      {
+        path: 'stock',
+        name: '股票关联版块查询',
+        component: () => import('@/views/bk/stock/index'),
+        meta: { title: '股票关联版块查询', icon: 'table' }
+      },
+      {
+        path: 'bkHistory',
+        name: '股票板块历史查询',
+        component: () => import('@/views/bk/bkHistory/index'),
+        meta: { title: '股票板块历史查询', icon: 'table' }
+      },
+      {
+        path: 'gnHistory',
+        name: '股票概念历史查询',
+        component: () => import('@/views/bk/gnHistory/index'),
+        meta: { title: '股票概念历史查询', icon: 'table' }
+      },
+      {
+        path: 'bktop',
+        name: '板块涨幅度查询',
+        component: () => import('@/views/bk/bktop/index'),
+        meta: { title: '板块涨幅度查询', icon: 'table' }
+      },
+      {
+        path: 'gntop',
+        name: '概念涨幅度查询',
+        component: () => import('@/views/bk/gntop/index'),
+        meta: { title: '概念涨幅度查询', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/stat',
+    component: Layout,
+    redirect: '/stat/stock',
+    name: '统计分析功能',
+    meta: { title: '统计分析功能', icon: 'example' },
+    children: [
+      {
+        path: 'stock_stat',
+        name: '周和图表统计',
+        component: () => import('@/views/stat/stock_stat/index'),
+        meta: { title: '周和图表统计', icon: 'table' }
+      },
+      {
+        path: 'history_stat',
+        name: '股票历史记录统计',
+        component: () => import('@/views/stat/history_stat/index'),
+        meta: { title: '股票历史记录统计', icon: 'table' }
+      },
+      {
+        path: 'history_ten10_stat',
+        name: '最近十天交易汇总',
+        component: () => import('@/views/stat/history_ten10_stat/index'),
+        meta: { title: '最近十天交易汇总', icon: 'table' }
+      },
+      {
+        path: 'history_pool',
+        name: '最近股票池汇总',
+        component: () => import('@/views/stat/history_pool/index'),
+        meta: { title: '最近股票池汇总', icon: 'table' }
+      },
+      {
+        path: 'bk_stat',
+        name: '股票版块统计',
+        component: () => import('@/views/stat/bk_stat/index'),
+        meta: { title: '股票版块统计', icon: 'table' }
+      },
+      {
+        path: 'gn_stat',
+        name: '股票概念统计',
+        component: () => import('@/views/stat/gn_stat/index'),
+        meta: { title: '股票概念统计', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/mocktrade',
+    component: Layout,
+    redirect: '/mocktrade/position',
+    name: '虚拟业务处理',
+    meta: { title: '虚拟业务处理', icon: 'example' },
+    children: [
+      {
+        path: 'position',
+        name: '持仓信息',
+        component: () => import('@/views/mocktrade/position/index'),
+        meta: { title: '持仓信息', icon: 'table' }
+      },
+      {
+        path: 'entrust',
+        name: '今日委托信息',
+        component: () => import('@/views/mocktrade/entrust/index'),
+        meta: { title: '今日委托信息', icon: 'table' }
+      },
+      {
+        path: 'hisentrust',
+        name: '历史委托信息',
+        component: () => import('@/views/mocktrade/hisentrust/index'),
+        meta: { title: '历史委托信息', icon: 'table' }
+      },
+      {
+        path: 'deal',
+        name: '今日成交记录',
+        component: () => import('@/views/mocktrade/deal/index'),
+        meta: { title: '今日成交记录', icon: 'table' }
+      },
+      {
+        path: 'hisdeal',
+        name: '历史成交记录',
+        component: () => import('@/views/mocktrade/hisdeal/index'),
+        meta: { title: '历史成交记录', icon: 'table' }
+      },
+      {
+        path: 'hisposition',
+        name: '历史持仓记录',
+        component: () => import('@/views/mocktrade/hisposition/index'),
+        meta: { title: '历史持仓记录', icon: 'table' }
+      },
+      {
+        path: 'hismoney',
+        name: '历史金额记录',
+        component: () => import('@/views/mocktrade/hismoney/index'),
+        meta: { title: '历史金额记录', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/realtrade',
+    component: Layout,
+    redirect: '/realtrade/position',
+    name: '真实业务处理',
+    meta: { title: '真实业务处理', icon: 'example' },
+    children: [
+      {
+        path: 'position',
+        name: '持仓信息',
+        component: () => import('@/views/realtrade/position/index'),
+        meta: { title: '持仓信息', icon: 'table' }
+      },
+      {
+        path: 'entrust',
+        name: '今日委托信息',
+        component: () => import('@/views/realtrade/entrust/index'),
+        meta: { title: '今日委托信息', icon: 'table' }
+      },
+      {
+        path: 'hisentrust',
+        name: '历史委托信息',
+        component: () => import('@/views/realtrade/hisentrust/index'),
+        meta: { title: '历史委托信息', icon: 'table' }
+      },
+      {
+        path: 'deal',
+        name: '今日成交记录',
+        component: () => import('@/views/realtrade/deal/index'),
+        meta: { title: '今日成交记录', icon: 'table' }
+      },
+      {
+        path: 'hisdeal',
+        name: '历史成交记录',
+        component: () => import('@/views/realtrade/hisdeal/index'),
+        meta: { title: '历史成交记录', icon: 'table' }
+      },
+      {
+        path: 'hisposition',
+        name: '历史持仓记录',
+        component: () => import('@/views/realtrade/hisposition/index'),
+        meta: { title: '历史持仓记录', icon: 'table' }
+      },
+      {
+        path: 'hismoney',
+        name: '历史金额记录',
+        component: () => import('@/views/realtrade/hismoney/index'),
+        meta: { title: '历史金额记录', icon: 'table' }
+      }
+    ]
+  },
+  {
     path: '/tools',
     component: Layout,
     redirect: '/tools/clear',

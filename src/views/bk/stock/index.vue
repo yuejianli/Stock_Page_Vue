@@ -1,24 +1,43 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="searchObj.keyword" placeholder="关键字" style="width: 200px;margin-bottom:30px;" class="filter-item" @keyup.enter.native="handleFilter"/>
+      <el-input v-model="searchObj.keyword" placeholder="股票编码" style="width: 200px;margin-bottom:30px;" class="filter-item" @change="fetchData"/>
     </div>
     <el-table
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
-      style="width: 100%;"
       border
       fit
       highlight-current-row>
-      <el-table-column label="Key值" width="400" align="center">
+      <el-table-column label="编码" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.key }}
+          {{ scope.row.code }}
         </template>
       </el-table-column>
-      <el-table-column label="内容信息" align="center">
+      <el-table-column label="名称" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.value }}
+          {{ scope.row.name }}
+        </template>
+      </el-table-column>
+      <el-table-column label="板块/概念1" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.bkCode1 }}
+        </template>
+      </el-table-column>
+      <el-table-column label="板块/概念2" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.bkCode2 }}
+        </template>
+      </el-table-column>
+      <el-table-column label="板块/概念3" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.bkCode3 }}
+        </template>
+      </el-table-column>
+      <el-table-column label="板块/概念4" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.bkCode4 }}
         </template>
       </el-table-column>
     </el-table>
@@ -28,7 +47,7 @@
 </template>
 
 <script>
-import cacheKeyApi from '@/api/sysconfig/cacheKey'
+import stockbkApi from '@/api/bk/stockbk'
 export default {
   // 定义 过滤器
   filters: {
@@ -55,15 +74,11 @@ export default {
     this.fetchData(this.currentPage, this.pagesize)
   },
   methods: {
-    handleFilter() {
-      this.currentPage = 1
-      this.fetchData(this.currentPage, this.pagesize)
-    },
-    fetchData(currentPage, pagesize) {
+    fetchData(currentPage = 1, pagesize = 10) {
       // 异步获取数据 (ajax)
       this.currentPage = currentPage
       this.pagesize = pagesize
-      cacheKeyApi.getPageList(this.currentPage, this.pagesize, this.searchObj).then(
+      stockbkApi.getPageList(this.currentPage, this.pagesize, this.searchObj).then(
         response => {
           this.list = response.data.list
           // 添加响应数
