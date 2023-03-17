@@ -24,6 +24,7 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   // TODO: yjl 配置路由， 实际上是菜单信息
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/mylogin', component: () => import('@/views/login/myindex'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
   {
     path: '/',
@@ -36,40 +37,17 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/index')
     }]
   },
-  // TODO: yjl 菜单的配置信息  路径 组件 路由到哪里 名称 是否隐藏 子菜单:[子菜单路径 子菜单组件]
-  // meta 里面的 title 才表示菜单展示的名称
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example一级菜单',
-    meta: { title: 'Example一级菜单11', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table二级菜单',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table二级菜单22', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree二级菜单',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree二级菜单22', icon: 'tree' }
-      }
-    ]
-  },
   // TODO: yjl 添加菜单路由
   {
     path: '/stock',
     component: Layout,
     redirect: '/stock/stock',
-    name: '股票信息模块',
+    name: 'stock',
     meta: { title: '股票信息模块', icon: 'example' },
     children: [
       {
         path: 'stock',
-        name: '股票模块',
+        name: 'stock',
         component: () => import('@/views/stock/stock/index'),
         meta: { title: '股票模块', icon: 'table' }
       },
@@ -231,10 +209,16 @@ export const constantRouterMap = [
   {
     path: '/realtrade',
     component: Layout,
-    redirect: '/realtrade/position',
+    redirect: '/realtrade/login',
     name: '真实业务处理',
     meta: { title: '真实业务处理', icon: 'example' },
     children: [
+      {
+        path: 'login',
+        name: '交易用户登录',
+        component: () => import('@/views/realtrade/login/index'),
+        meta: { title: '交易用户登录', icon: 'table' }
+      },
       {
         path: 'position',
         name: '持仓信息',
@@ -369,87 +353,6 @@ export const constantRouterMap = [
         name: '卖出规则配置',
         component: () => import('@/views/tradeconfig/sellrule/index'),
         meta: { title: '卖出规则配置', icon: 'table' }
-      }
-    ]
-  },
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   },

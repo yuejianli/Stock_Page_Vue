@@ -13,32 +13,29 @@
         <div>
           <el-form ref="loginForm" :model="loginForm" auto-complete="on" label-position="left" class="loginForm">
             <el-form-item prop="username">
-              <el-col :span="8">
-                <label class="control-label">登录账号:</label>
-              </el-col>
-              <el-col :span="8">
-                <el-input v-model="loginForm.account" type="text" auto-complete="on" placeholder="请输入用户名" />
+              <el-col :span="10" :offset="3">
+                <label class="control-label">证券账号已经提前绑定,无需输入:</label>
               </el-col>
             </el-form-item>
-            <el-form-item prop="username">
-              <el-col :span="8">
-                <label class="control-label">密码:</label>
-              </el-col>
-              <el-col :span="8">
-                <el-input v-model="loginForm.password" type = "password" auto-complete="on" placeholder="请输入密码" />
+            <el-form-item prop="password">
+              <el-col :span="10" :offset="3">
+                <label class="control-label">证券密码已经提前写入,无需输入:</label>
               </el-col>
             </el-form-item>
             <el-form-item>
-              <el-col :span="6">
-                <el-checkbox v-model="loginForm.readAgreementValue" label="1">我已同意并知晓</el-checkbox>
+              <el-col :span="3">
+                验证码:
               </el-col>
-              <el-col :span="18" class="notes">
-                <p>本软件不提供股市任何有价值的信息,不能做为股市投资软件使用</p>
+              <el-col :span="8">
+                <el-input v-model="loginForm.identifyCode" type="text"/>
+              </el-col>
+              <el-col :span="12" class="yzm">
+                <img :src="'data:image/png;base64,'+ url" alt="" @click="refreshYzm()">
               </el-col>
             </el-form-item>
             <el-form-item>
-              <el-col :offset="5">
-                <el-button :loading="loading" element-loading-text="登录中,请稍候..." type="primary" style="width:40%;" @click.native.prevent="handleLogin">
+              <el-col :offset="3">
+                <el-button :loading="loading" element-loading-text="登录中,请稍候..." type="primary" style="width:35%;" @click.native.prevent="handleLogin">
                   登录
                 </el-button>
               </el-col>
@@ -61,43 +58,42 @@
 </template>
 
 <script>
-import userApi from '@/api/right/user'
-import { setToken } from '@/utils/auth'
+import userApi from '@/api/trade/user'
+import yzmApi from '@/api/tradeconfig/method'
 export default {
   name: 'Login',
   data() {
     return {
       loginForm: {
-        account: 'test',
-        password: '123456',
-        readAgreement: 0,
-        readAgreementValue: false
+        identifyCode: ''
       },
-      loading: false,
-      redirect: undefined
+      url: null,
+      loading: false
     }
   },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
+  // 页面渲染成功后获取数据
+  created() {
+  // 调用 刷新验证码的方法
+    this.refreshYzm()
   },
   methods: {
+    refreshYzm() {
+      yzmApi.yzm().then(
+        response => {
+          this.url = response.data
+        }
+      )
+    },
     handleLogin() {
       this.loading = true
       this.loginForm.readAgreement = this.loginForm.readAgreementValue ? 1 : 0
       userApi.login(this.loginForm).then(
         response => {
-          // 获取登录的数据
-          const user = response.data.currentUser
-          setToken(user.token)
           this.loading = false
-          // 进行跳转
-          const redirect = decodeURIComponent(this.$route.query.redirect || '/dashboard')
-          this.$router.push({ path: redirect })
+          this.$message({
+            type: 'success',
+            message: '交易用户登录成功!'
+          })
         }
       ).catch(e => {
         this.loading = false
@@ -115,9 +111,9 @@ export default {
   font-size: 40px;
   color: red;
 }
-.notes {
-  margin-top: -16px;
-  margin-left: -30px;
+.yzm {
+  margin-top: 0px;
+  margin-left: 10px;
 }
 .loginForm {
   border: 1px solid #eeeeee;

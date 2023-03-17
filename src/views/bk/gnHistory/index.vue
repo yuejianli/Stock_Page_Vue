@@ -86,12 +86,14 @@ export default {
       pagesize: 10, // 每页显示记录数
       total: 0, // 总记录数
       dateRange: [],
-      bks: null
+      bks: null,
+      bkCode: undefined
     }
   },
   // 页面渲染成功后获取数据
   created() {
     // 调用 fetchData 方法
+    this.getParams()
     this.initDate()
     this.initBks()
     this.listLoading = true
@@ -122,12 +124,15 @@ export default {
       }
       return ''
     },
+    getParams() {
+      this.bkCode = this.$route.query.bkCode
+    },
     // 初始化版块列表
     initBks() {
       bkApi.listGn({}).then(
         response => {
           this.bks = response.data || []
-          this.searchObj.bkCode = this.bks[0].code
+          this.searchObj.bkCode = this.bkCode || response.data[0].code
           this.fetchData(this.currentPage, this.pagesize)
         }
       ).catch(error => {

@@ -62,7 +62,6 @@
 
 <script>
 import userApi from '@/api/right/user'
-import { setToken } from '@/utils/auth'
 export default {
   name: 'Login',
   data() {
@@ -93,7 +92,8 @@ export default {
         response => {
           // 获取登录的数据
           const user = response.data.currentUser
-          setToken(user.token)
+          localStorage.setItem('loginUserId', user.id)
+          localStorage.setItem('Authorization', user.token)
           this.loading = false
           // 进行跳转
           const redirect = decodeURIComponent(this.$route.query.redirect || '/dashboard')

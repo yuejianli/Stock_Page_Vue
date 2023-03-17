@@ -22,22 +22,22 @@
       </el-table-column>
       <el-table-column label="板块/概念1" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bkCode1 }}
+          <el-button type="text" @click="showValue(scope.row.bkCodeType1,scope.row.bkCode1)"> {{ scope.row.bkContent1 }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="板块/概念2" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bkCode2 }}
+          <el-button type="text" @click="showValue(scope.row.bkCodeType2,scope.row.bkCode2)"> {{ scope.row.bkContent2 }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="板块/概念3" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bkCode3 }}
+          <el-button type="text" @click="showValue(scope.row.bkCodeType3,scope.row.bkCode3)"> {{ scope.row.bkContent3 }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="板块/概念4" width="200" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bkCode4 }}
+          <el-button type="text" @click="showValue(scope.row.bkCodeType4,scope.row.bkCode4)"> {{ scope.row.bkContent4 }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -100,6 +100,26 @@ export default {
       this.pagesize = val
       this.currentPage = 1
       this.fetchData(this.currentPage, this.pagesize)
+    },
+    showContent(row) {
+
+    },
+    showValue(type, bkCode) {
+      if (type === 1) {
+        this.$router.push({
+          path: '/bk/bkHistory',
+          query: {
+            bkCode: bkCode
+          }
+        })
+      } else if (type === 2) {
+        this.$router.push({
+          path: '/bk/gnHistory',
+          query: {
+            bkCode: bkCode
+          }
+        })
+      }
     }
   }
 }

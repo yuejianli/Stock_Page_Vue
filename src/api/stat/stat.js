@@ -2,7 +2,6 @@ import request from '@/utils/request'
 const STAT_URL = '/stat'
 export default {
   getPageList(data) {
-    console.log('currentPage', data)
     return request({
       url: `${STAT_URL}/getTenTradeData`,
       method: 'post',

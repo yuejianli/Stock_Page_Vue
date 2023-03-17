@@ -10,5 +10,11 @@ export default {
         'pageSize': pageSize
       }
     })
+  },
+  yzm() {
+    return request({
+      url: `${TRADE_METHOD_URL}/yzm`,
+      method: 'get'
+    })
   }
 }

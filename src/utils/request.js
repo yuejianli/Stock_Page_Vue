@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import store from '../store'
 import { getToken } from '@/utils/auth'
 
 // 创建axios实例
@@ -12,10 +11,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      // TODO: yjl 设置请求头信息
-      config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
+    config.headers['Authorization'] = getToken() || ''
     return config
   },
   error => {
@@ -40,7 +36,7 @@ service.interceptors.response.use(
       })
 
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.code === 50008 || res.code === 50012 || res.code === 50014 || res.code === 401) {
         MessageBox.confirm(
           '你已被登出，可以取消继续留在该页面，或者重新登录',
           '确定登出',
@@ -50,9 +46,7 @@ service.interceptors.response.use(
             type: 'warning'
           }
         ).then(() => {
-          store.dispatch('FedLogOut').then(() => {
-            location.reload() // 为了重新实例化vue-router对象 避免bug
-          })
+          location.reload() // 为了重新实例化vue-router对象 避免bug
         })
       }
       return Promise.reject('error')
