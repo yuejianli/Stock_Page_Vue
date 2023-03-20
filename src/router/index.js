@@ -362,6 +362,7 @@ export const constantRouterMap = [
 export default new Router({
   // TODO: yjl 历史记录可开 //后端支持可开
   mode: 'history',
+  base: '/Stock',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

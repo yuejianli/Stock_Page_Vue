@@ -44,7 +44,7 @@ export default {
     },
     logout() {
       localStorage.removeItem('Authorization')
-      location.reload() // 为了重新实例化vue-router对象 避免bug
+      this.$router.push({ path: '/login' })
     }
   }
 }
