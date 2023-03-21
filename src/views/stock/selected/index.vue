@@ -74,9 +74,6 @@ import selectedApi from '@/api/stock/selected'
 export default {
   // 定义 过滤器
   filters: {
-    dateTypeFilter(dateType) {
-      return '法定节假日'
-    }
   },
   // 定义数据模型
   data() {

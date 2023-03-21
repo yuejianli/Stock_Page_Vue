@@ -356,6 +356,27 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/user',
+    name: '用户资源配置',
+    meta: { title: '用户资源配置', icon: 'example' },
+    children: [
+      {
+        path: 'user',
+        name: '用户',
+        component: () => import('@/views/user/user/index'),
+        meta: { title: '用户', icon: 'table' }
+      },
+      {
+        path: 'role',
+        name: '角色',
+        component: () => import('@/views/user/role/index'),
+        meta: { title: '角色', icon: 'table' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
