@@ -94,6 +94,7 @@ export default {
             type: 'success',
             message: '交易用户登录成功!'
           })
+          localStorage.removeItem('tradeUserNoLogin')
         }
       ).catch(e => {
         this.loading = false

@@ -8,7 +8,8 @@ export default {
       data: {
         'pageNum': currentPage,
         'pageSize': pageSize,
-        'keyword': searchObj.keyword
+        'keyword': searchObj.keyword,
+        'type': searchObj.type
       }
     })
   }

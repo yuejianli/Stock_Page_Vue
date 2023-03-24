@@ -6,12 +6,23 @@ import { getToken } from '@/utils/auth' // 验权
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  // 对联系管理员进行处理
+  if (localStorage.getItem('relation')) {
+    localStorage.removeItem('relation')
+    next({ path: '/relation' })
+    NProgress.done()
+  }
   if (getToken()) {
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      next()
+      if (localStorage.getItem('tradeUserNoLogin') && (to.path !== '/realtrade/login' && to.path.indexOf('/realtrade/') >= 0)) {
+        next({ path: '/realtrade/login' })
+        NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
+      } else {
+        next()
+      }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

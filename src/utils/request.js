@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import { getToken } from '@/utils/auth'
-
+import { getToken, removeToken } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api 的 base_url
-  timeout: 5000 // 请求超时时间
+  timeout: 10000 // 请求超时时间
 })
 
 // request拦截器
@@ -29,16 +28,9 @@ service.interceptors.response.use(
      */
     const res = response.data
     if (res.code !== 20000) {
-      Message({
-        message: res.message,
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-      // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014 || res.code === 401) {
+      if (res.code === 10011005) {
         MessageBox.confirm(
-          '你已被登出，可以取消继续留在该页面，或者重新登录',
+          '该用户配置的东方财富账号未登录或者登录已失效',
           '确定登出',
           {
             confirmButtonText: '重新登录',
@@ -46,7 +38,25 @@ service.interceptors.response.use(
             type: 'warning'
           }
         ).then(() => {
-          location.reload() // 为了重新实例化vue-router对象 避免bug
+          localStorage.setItem('tradeUserNoLogin', true)
+        })
+      } else if (res.code === 10011003 || res.code === 10011004) {
+        MessageBox.confirm(
+          '当前登录用户未配置东方财富用户,请联系管理员进行配置',
+          '退出登录',
+          {
+            confirmButtonText: '联系管理员',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
+          localStorage.setItem('relation', true)
+        })
+      } else {
+        Message({
+          message: res.message,
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject('error')
@@ -55,13 +65,21 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    if (error.response.status === 401) {
+      MessageBox.confirm(
+        '你已被登出，可以取消继续留在该页面，或者重新登录',
+        '确定登出',
+        {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        // 将token 移除掉
+        removeToken()
+        return Promise.reject(error)
+      })
+    }
   }
 )
 

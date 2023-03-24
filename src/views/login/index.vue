@@ -95,6 +95,8 @@ export default {
           const user = response.data.currentUser
           setToken(user.token)
           setLoginUser(user)
+          localStorage.setItem('menuList', JSON.stringify(response.data.menuList))
+          localStorage.removeItem('tradeUserNoLogin')
           this.loading = false
           // 进行跳转
           const redirect = decodeURIComponent(this.$route.query.redirect || '/dashboard')

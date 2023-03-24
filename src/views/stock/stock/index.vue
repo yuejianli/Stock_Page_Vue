@@ -1,7 +1,21 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="searchObj.keyword" placeholder="股票的代码或者名称" style="width: 200px;margin-bottom:30px;" class="filter-item" @change="fetchData()"/>
+      <el-form :inline="true" class="demo-form-inline">
+        <el-form-item label="请选择范围:">
+          <el-select v-model="searchObj.type" class="filter-item" filterable @change="fetchData()">
+            <el-option
+              v-for="item in stockTypes"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="searchObj.keyword" placeholder="股票的代码或者名称" style="width: 200px;margin-bottom:30px;" class="filter-item" @change="fetchData()"/>
+        </el-form-item>
+      </el-form>
     </div>
     <el-table
       v-loading="listLoading"
@@ -213,6 +227,12 @@ const asyncTypes = [
   { 'id': 7, 'name': '全部交易记录' },
   { 'id': 0, 'name': '自定义日期' }
 ]
+const stockTypes = [
+  { 'id': 0, 'name': '全部' },
+  { 'id': 1, 'name': '沪市' },
+  { 'id': 2, 'name': '深市' },
+  { 'id': 3, 'name': '创业板' }
+]
 export default {
   // 定义 过滤器
   filters: {
@@ -243,8 +263,12 @@ export default {
     return {
       listLoading: true,
       list: null,
+      stockTypes,
       // 追加分页相关的数据信息
-      searchObj: {}, // 查询条件
+      searchObj: {
+        keyword: '',
+        type: 0
+      }, // 查询条件
       currentPage: 1, // 当前页
       pagesize: 10, // 每页显示记录数
       total: 0, // 总记录数

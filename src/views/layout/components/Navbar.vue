@@ -44,7 +44,7 @@
           <el-button type="primary">设置新密码</el-button>
         </el-form-item>
         <el-form-item v-if="resetPassword" :label="passwordText">
-          <el-col :span="18"><el-input v-model="temp.password"/></el-col>
+          <el-col :span="18"><el-input v-model="temp.password" type ="password"/></el-col>
         </el-form-item>
       </el-form>   
       <div slot="footer" class="dialog-footer">
@@ -102,7 +102,11 @@ export default {
       const loginUser = getLoginUser()
       userApi.getInfo({ account: loginUser.account }).then(
         response => {
-          this.temp = Object.assign({}, response.data)
+          this.temp.account = response.data.account
+          this.temp.name = response.data.name
+          this.temp.phone = response.data.phone
+          this.temp.email = response.data.email
+          this.temp.password = response.data.password
           this.dialogFormVisible = true
           this.resetPassword = false
           this.passwordText = '新密码:'
@@ -116,7 +120,6 @@ export default {
           type: 'success',
           message: '更新员工信息成功!'
         })
-        this.fetchData()
       })
     }
   }

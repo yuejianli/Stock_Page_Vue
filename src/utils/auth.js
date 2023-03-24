@@ -10,7 +10,7 @@ export function setToken(token) {
 }
 
 export function removeToken() {
-  return localStorage.remove(TokenKey)
+  return localStorage.removeItem(TokenKey)
 }
 export function getLoginUser() {
   return JSON.parse(localStorage.getItem(loginUserKey))
@@ -19,6 +19,6 @@ export function setLoginUser(currentUser) {
   return localStorage.setItem(loginUserKey, JSON.stringify(currentUser))
 }
 export function removeUser() {
-  return localStorage.remove(loginUserKey)
+  return localStorage.removeItem(loginUserKey)
 }
 
