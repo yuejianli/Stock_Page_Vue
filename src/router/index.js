@@ -88,8 +88,6 @@ export function initMap(constantRouterMap) {
       secondMenuUrlList.push(menuList[id].url)
     }
   }
-  console.log('topMenuUrlList', topMenuUrlList)
-  console.log('secondMenuUrlList', secondMenuUrlList)
   // 股票权限
   if (topMenuUrlList.includes('stock')) {
     const firstMenu = {

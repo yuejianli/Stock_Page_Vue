@@ -17,8 +17,8 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      if (localStorage.getItem('tradeUserNoLogin') && (to.path !== '/realtrade/login' && to.path.indexOf('/realtrade/') >= 0)) {
-        next({ path: '/realtrade/login' })
+      if (localStorage.getItem('tradeUserNoLogin') && (to.path !== '/realtrade/rlogin' && to.path.indexOf('/realtrade/') >= 0)) {
+        next({ path: '/realtrade/rlogin' })
         NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
       } else {
         next()

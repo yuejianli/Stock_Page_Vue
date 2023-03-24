@@ -108,7 +108,7 @@
           <el-button type="primary">设置新密码</el-button>
         </el-form-item>
         <el-form-item v-if="resetPassword" :label="passwordText">
-          <el-col :span="18"><el-input v-model="temp.password"/></el-col>
+          <el-col :span="18"><el-input v-model="temp.password" type="password" /></el-col>
         </el-form-item>
         <el-form-item label="选择角色:">
           <el-col :span="18">
