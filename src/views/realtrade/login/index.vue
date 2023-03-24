@@ -99,6 +99,7 @@ export default {
       ).catch(e => {
         this.loading = false
       })
+      this.$router.push({ path: '/realtrade/position' })
     }
   }
 }
