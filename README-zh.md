@@ -9,7 +9,6 @@ npm run dev
 
 npm run build 
 
-
 # 写在前面的话
 
 > 股票是个害人的东西， 如果可以的话，千万别炒股, 大A就是在强奸所有国人的善良和勇敢 -------- 一个炒股亏钱的人的自省和感悟。
@@ -43,7 +42,7 @@ npm run build
 
 # 相对好的地方
 
-1. 用户 在本地 配置了 东方财富账号和密码之后， 可以实现真正的交易 (交易方式抄袭 群主大大的)
+1. 用户 在本地 配置了 账号和密码之后， 可以实现真正的交易 (交易方式抄袭 群主大大的)
 2. 提供了模拟交易功能，并且可以将模拟交易的数据保存下来， 便于追溯。
 3. 提供了很多个定时任务， 可以获取每天的交易数据， 包括 股票价格数据，股票交易记录，版本/概念历史数据
 4. 提供了股票持仓，金额历史保存功能， 用户可以方便的查看 股票每天的持仓变化， 对 成本价进行关注。
@@ -92,7 +91,7 @@ npm run build
 2. 配置文件 application.yml application-*.yml 配置文件进行修改， 主要修改数据库连接 和 redis 连接， 用户在本地采用 明文即可。 也可以通过 /usr/encrypt 进行加密
 
 3. 启动 top.yueshushu.learn.StockApplication 启动类即可。
-4. 东方财富 用户存储在 trade_user 中， 通过 /user/tradeUserText 加密后手动存储到数据库中。
+4. 用户存储在 trade_user 中， 通过 /user/tradeUserText 加密后手动存储到数据库中。
 
 # 项目页面演示
 
@@ -100,7 +99,7 @@ npm run build
 
 ## 登录
 
-![img_2.png](img/img_2.png)
+!img_2.png](https://github.com/yuejianli/Stock_Api/tree/develop/img/img_2.png)
 
 跳转到首页
 
@@ -322,9 +321,10 @@ npm run build
 
 ![img_45.png](img/img_45.png)
 
+
 ## 虚拟/ 真实 业务处理
 
-用户配置了 东方财富交易用户，便可以登录，查看。 真实的业务，会有缓存。
+用户配置了 财富交易用户，便可以登录，查看。 真实的业务，会有缓存。
 
 ### 登录
 
