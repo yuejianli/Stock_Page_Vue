@@ -19,7 +19,6 @@ npm run build
 
 本项目是在群主的基础上进行扩展。
 
-群主大大链接:   https://github.com/bosspen1/stock
 
 # 项目预览提示
 
